@@ -200,6 +200,13 @@ return {
       vhdl_ls = {
         root_markers = { 'vhdl_ls.toml', '.vhdl_ls.toml', '.git' },
       },
+      tinymist = {
+        settings = {
+          formatterMode = 'typstyle',
+          exportPdf = 'never',
+        },
+      },
+
       -- rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --

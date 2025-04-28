@@ -99,5 +99,15 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sn', function()
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
+
+    -- Shortcut for searching through dotfiles files
+    vim.keymap.set('n', '<leader>s.', function()
+      builtin.find_files { cwd = vim.fn.expand '$HOME/.dotfiles' }
+    end, { desc = '[S]earch [.]dotfiles' })
+
+    -- Shortcut for searching through home directory
+    vim.keymap.set('n', '<leader>s~', function()
+      builtin.find_files { cwd = vim.fn.expand '$HOME' }
+    end, { desc = '[S]earch home directory [~] files' })
   end,
 }
