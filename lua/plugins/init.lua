@@ -161,6 +161,7 @@ return {
         python = { 'isort', 'black' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        vhdl = { 'vsg' },
       },
     },
   },
@@ -300,6 +301,9 @@ return {
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
 
+      --Split / Join arguments
+      require('mini.splitjoin').setup()
+
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
@@ -365,6 +369,9 @@ return {
     version = '1.*',
     opts = {
       dependencies_bin = { ['tinymist'] = 'tinymist' },
+      -- Use qutebrowser for preview if available and ignore warnings...
+
+      open_cmd = vim.fn.executable 'qutebrowser' == 1 and 'qutebrowser %s > /dev/null 2>&1' or nil,
     },
   },
 
