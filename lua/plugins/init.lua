@@ -375,9 +375,48 @@ return {
     },
   },
   {
+    'toppair/peek.nvim',
+    event = { 'VeryLazy' },
+    build = 'deno task --quiet build:fast',
+    config = function()
+      require('peek').setup {
+        app = vim.fn.executable 'qutebrowser' == 1 and 'qutebrowser' or 'browser',
+      }
+      vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
+      vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
+    end,
+  },
+  -- {
+  --   'OXY2DEV/markview.nvim',
+  --   lazy = false,
+  --   opts = {
+  --     preview = {
+  --       -- modes = {},
+  --       hybrid_modes = { 'n', 'no', 'c' },
+  --     },
+  --   },
+  --
+  --   -- For blink.cmp's completion
+  --   -- source
+  --   -- dependencies = {
+  --   --     "saghen/blink.cmp"
+  --   -- },
+  -- },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
+    opts = {
+      render_modes = { 'n', 'c', 't' },
+    },
+  },
+  {
     'catgoose/nvim-colorizer.lua',
     event = 'BufReadPre',
     opts = { -- set to setup table
+      user_default_options = {
+        names = false,
+      },
+      filetypes = { '*' },
     },
   },
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
