@@ -89,16 +89,13 @@ return {
         -- When you move your cursor, the highlights will be cleared (the second autocommand).
         local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-        -- Change diagnostics for ltex-ls as that is for spelling and grammar checking
-        if client and (client.name == 'ltex') then
-          vim.diagnostic.config({
-            virtual_text = false, -- disable inline messages
-            underline = true, -- keep squiggly underlines
-            signs = true,
-            severity_sort = true,
-            float = { border = 'rounded', source = 'if_many' },
-          }, event.buf) -- make it buffer-local
-        end
+        -- -- Change diagnostics for ltex-ls as that is for spelling and grammar checking
+        -- if client and (client.name == 'ltex') then
+        --   vim.diagnostic.config({
+        --     virtual_text = false, -- disable inline messages
+        --     underline = { severity = { min = vim.diagnostic.severity.HINT } },
+        --   }, vim.lsp.diagnostic.get_namespace(client.id)) -- make it only for the specific client
+        -- end
 
         if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
           local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
@@ -140,7 +137,7 @@ return {
     vim.diagnostic.config {
       severity_sort = true,
       float = { border = 'rounded', source = 'if_many' },
-      underline = { severity = vim.diagnostic.severity.ERROR },
+      underline = { severity = { min = vim.diagnostic.severity.WARN } },
       signs = vim.g.have_nerd_font and {
         text = {
           [vim.diagnostic.severity.ERROR] = '󰅙 ',
@@ -163,6 +160,8 @@ return {
         end,
       },
     }
+
+    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic message' })
 
     -- Enable the following language servers
     --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
