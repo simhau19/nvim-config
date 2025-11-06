@@ -242,6 +242,7 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
+      'clang-format',
 
       --for python. requires python3 python3-pip python3-venv
       'isort',
