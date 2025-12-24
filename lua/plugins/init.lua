@@ -474,4 +474,5 @@ return {
     },
     cmd = { 'CsvViewEnable', 'CsvViewDisable', 'CsvViewToggle' },
   },
+  'mbbill/undotree',
 }
