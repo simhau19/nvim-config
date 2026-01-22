@@ -247,6 +247,7 @@ return {
       --for python. requires python3 python3-pip python3-venv
       'isort',
       'black',
+      'codelldb',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
