@@ -390,7 +390,56 @@ return {
       filetypes = { '*' },
     },
   },
-  { 'Civitasv/cmake-tools.nvim', opts = {} },
+  {
+    'Civitasv/cmake-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function(_, opts)
+      local dap = require 'dap'
+      local cmake = require 'cmake-tools'
+      cmake.setup(opts)
+      for _, lang in ipairs { 'c', 'cpp' } do
+        dap.configurations[lang] = dap.configurations[lang] or {}
+
+        table.insert(dap.configurations[lang], {
+          name = 'CMAKE: debug target',
+          type = 'codelldb',
+          request = 'launch',
+          program = cmake.get_launch_target_path(),
+          args = cmake.get_launch_args(),
+          cwd = '${workspaceFolder}',
+          stopOnEntry = false,
+          runInTerminal = true,
+          console = 'integratedTerminal',
+        })
+
+        table.insert(dap.configurations[lang], {
+          name = 'CMAKE: debug target as root (sudo)',
+          type = 'codelldb_sudo',
+          request = 'launch',
+          program = cmake.get_launch_target_path(),
+          args = cmake.get_launch_args(),
+          cwd = '${workspaceFolder}',
+          stopOnEntry = false,
+          runInTerminal = true,
+          console = 'integratedTerminal',
+        })
+      end
+    end,
+
+    opts = {
+      --   cmake_runner = {
+      --     name = 'toggleterm',
+      --     default_opts = {
+      --       toggleterm = {
+      --         direction = 'horizontal',
+      --         display_name = 'CMake:',
+      --         singleton = false,
+      --         close_on_exit = false,
+      --       },
+      --     },
+      --   },
+    },
+  },
   {
     'hat0uma/csvview.nvim',
     opts = {
@@ -412,4 +461,7 @@ return {
     cmd = { 'CsvViewEnable', 'CsvViewDisable', 'CsvViewToggle' },
   },
   'mbbill/undotree',
+  -- { 'akinsho/toggleterm.nvim', opts = {
+  --   open_mapping = '<leader>T',
+  -- } },
 }

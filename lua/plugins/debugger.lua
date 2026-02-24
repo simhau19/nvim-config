@@ -9,6 +9,12 @@ return {
       vim.keymap.set('n', '<leader>dp', dap.pause, { desc = 'Pause execution' })
       vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = 'Terminate debugging session' })
       vim.keymap.set('n', '<leader>ds', dap.step_over, { desc = 'Step Over' })
+
+      dap.adapters.codelldb_sudo = {
+        type = 'executable',
+        command = 'sudo',
+        args = { '-A', vim.fn.stdpath 'data' .. '/mason/bin/codelldb' },
+      }
     end,
   },
   {
@@ -34,7 +40,8 @@ return {
       dap.listeners.before.attach.dapui_config = dapui.open
       dap.listeners.before.launch.dapui_config = dapui.open
       dap.listeners.before.event_terminated.dapui_config = dapui.close
-      dap.listeners.before.event_exited.dapui_config = dapui.close
+      -- dap.listeners.before.event_exited.dapui_config = dapui.close
+      vim.keymap.set('n', '<leader>td', dapui.toggle, { desc = 'Toggle debugging view' })
     end,
   },
 }
