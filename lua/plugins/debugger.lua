@@ -44,4 +44,35 @@ return {
       vim.keymap.set('n', '<leader>td', dapui.toggle, { desc = 'Toggle debugging view' })
     end,
   },
+  {
+    'jedrzejboczar/nvim-dap-cortex-debug',
+    dependencies = {
+      'mfussenegger/nvim-dap',
+    },
+    opts = {},
+    config = function(_, opts)
+      local cortex_debug = require 'dap-cortex-debug'
+      local dap = require 'dap'
+      local cmake = require 'cmake-tools'
+      cortex_debug.setup(opts)
+      print 'woohoo'
+      for _, lang in ipairs { 'c', 'cpp' } do
+        dap.configurations[lang] = dap.configurations[lang] or {}
+
+        table.insert(
+          dap.configurations[lang],
+          cortex_debug.openocd_config {
+            name = 'Debug with OpenOCD',
+            cwd = '${workspaceFolder}',
+            executable = function()
+              return cmake.get_launch_target_path()
+            end,
+            configFiles = { 'interface/cmsis-dap.cfg', 'target/atsamv.cfg' },
+            gdbTarget = 'localhost:50000',
+            showDevDebugOutput = false,
+          }
+        )
+      end
+    end,
+  },
 }
