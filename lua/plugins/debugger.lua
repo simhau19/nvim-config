@@ -4,11 +4,16 @@ return {
     config = function(_, _)
       local dap = require 'dap'
       vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = 'Toggle breakpoint' })
-      vim.keymap.set('n', '<leader>dr', dap.continue, { desc = 'Start or continue debugger' })
+      vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'Start or continue debugger' })
       vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Start or continue debugger' })
       vim.keymap.set('n', '<leader>dp', dap.pause, { desc = 'Pause execution' })
+      vim.keymap.set('n', '<leader>dr', dap.continue, { desc = 'Restart debugger session' })
       vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = 'Terminate debugging session' })
       vim.keymap.set('n', '<leader>ds', dap.step_over, { desc = 'Step Over' })
+      vim.keymap.set('n', '<leader>di', dap.step_into, { desc = 'Step Into' })
+      vim.keymap.set('n', '<leader>do', dap.step_out, { desc = 'Step Out' })
+      vim.keymap.set('n', '<leader>du', dap.up, { desc = 'Stacktrace move up' })
+      vim.keymap.set('n', '<leader>dd', dap.down, { desc = 'Stacktrace move down' })
 
       dap.adapters.codelldb_sudo = {
         type = 'executable',
