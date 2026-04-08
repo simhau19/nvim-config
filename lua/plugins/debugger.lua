@@ -60,7 +60,6 @@ return {
       local dap = require 'dap'
       local cmake = require 'cmake-tools'
       cortex_debug.setup(opts)
-      print 'woohoo'
       for _, lang in ipairs { 'c', 'cpp' } do
         dap.configurations[lang] = dap.configurations[lang] or {}
 

@@ -86,6 +86,8 @@ P.S. You can delete this when you're done too. It's your config now! :)
 
 require 'options'
 
+require 'filetypes'
+
 require 'keymaps'
 
 require 'autocommands'
