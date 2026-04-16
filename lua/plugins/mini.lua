@@ -61,7 +61,7 @@ return {
           end
           vim.fn.chdir(vim.fs.dirname(path))
           return vim.notify(vim.fn.getcwd())
-        end, { buffer = buf_id, desc = '[C]hange Directory' })
+        end, { buffer = buf_id, desc = 'Sett current working directory' })
       end,
     })
 
