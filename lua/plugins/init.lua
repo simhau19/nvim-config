@@ -156,6 +156,10 @@ return {
         end
       end,
       formatters_by_ft = {
+        c = { 'clang-format' },
+        cpp = { 'clang-format' },
+        cmake = { 'gersemi' },
+        markdown = { 'prettier' },
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
