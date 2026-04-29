@@ -89,6 +89,10 @@ return {
         -- When you move your cursor, the highlights will be cleared (the second autocommand).
         local client = vim.lsp.get_client_by_id(event.data.client_id)
 
+        if client and (client.name == 'clangd') then
+          map('gh', ':LspClangdSwitchSourceHeader<CR>', 'Switch between [H]eader and source')
+        end
+
         -- -- Change diagnostics for ltex-ls as that is for spelling and grammar checking
         -- if client and (client.name == 'ltex') then
         --   vim.diagnostic.config({
